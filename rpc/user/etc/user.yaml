@@ -1,0 +1,18 @@
+Name: user.rpc
+ListenOn: 0.0.0.0:8888
+Etcd:
+  Hosts:
+  - 127.0.0.1:2379
+  Key: user.rpc
+Mysql:
+  DataSource: root:root@tcp(140.210.95.82:3306)/fileup?charset=utf8mb4&parseTime=True&loc=Local
+Redis:
+  Host:
+  Address: 140.210.95.82:6379
+  Key:
+Email:
+  UserName: 1491350947@qq.com
+  Password: ytiwpwxbhbfrbagg
+Auth:
+  AccessSecret: fileup
+  AccessExpire: 120

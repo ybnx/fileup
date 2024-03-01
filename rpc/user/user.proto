@@ -1,0 +1,83 @@
+syntax = "proto3";
+
+package user;
+option go_package="./user";
+
+message RegisterRequest {
+  string Name = 1;
+  string Password = 2;
+  string Email = 3;
+  string VeCode = 4;
+}
+
+message RegisterResponse {
+  int64 UserId = 1;
+  string AccessToken = 2;
+  string RefreshToken = 3;
+}
+
+message EmailLoginRequest {
+  string Email = 1;
+  string VeCode = 2;
+}
+
+message EmailLoginResponse {
+  int64 UserId = 1;
+  string AccessToken = 2;
+  string RefreshToken = 3;
+}
+
+message SendCodeRequest {
+  string Email = 1;
+}
+
+message SendCodeResponse {
+  string Message = 1;
+}
+
+message PasswdLoginRequest {
+  string Email = 1;
+  string Password = 2;
+}
+
+message PasswdLoginResponse {
+  int64 UserId = 1;
+  string AccessToken = 2;
+  string RefreshToken = 3;
+}
+
+message UserInfoRequest {
+  string UserId = 1;
+}
+
+message UserInfoResponse {
+  int64 UserId = 1;
+  string Name = 2;
+  string Email= 3;
+}
+
+message ChangePasswdRequest {
+  string NewPasswd = 1;
+}
+
+message ChangePasswdResponse {
+  string Message = 1;
+}
+
+message SignoutRequest {
+  string Email = 1;
+}
+
+message SignoutResponse {
+  string Message = 1;
+}
+
+service User {
+  rpc Register(RegisterRequest) returns(RegisterResponse);
+  rpc EmailLogin(EmailLoginRequest) returns(EmailLoginResponse);
+  rpc SendCode(SendCodeRequest) returns(SendCodeResponse);
+  rpc PasswdLogin(PasswdLoginRequest) returns(PasswdLoginResponse);
+  rpc UserInfo(UserInfoRequest) returns(UserInfoResponse);
+  rpc ChangePasswd(ChangePasswdRequest) returns(ChangePasswdResponse);
+  rpc Signout(SignoutRequest) returns(SignoutResponse);
+}

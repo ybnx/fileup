@@ -1,0 +1,92 @@
+syntax = "v1"
+
+type (
+	RegisterRequest {
+		Name     string `json:"name"`
+		Password string `json:"password"`
+		Email    string `json:"email"`
+		VeCode   string `json:"veCode"`
+	}
+	RegisterResponse {
+		UserId       int64  `json:"userId"`
+		AccessToken  string `json:"accessToken"`
+		RefreshToken string `json:"refreshToken"`
+	}
+	EmailLoginRequest {
+		Email  string `json:"email"`
+		VeCode string `json:"veCode"`
+	}
+	EmailLoginResponse {
+		UserId       int64  `json:"userId"`
+		AccessToken  string `json:"accessToken"`
+		RefreshToken string `json:"refreshToken"`
+	}
+	SendCodeRequest {
+		Email string `json:"email"`
+	}
+	SendCodeResponse {
+		Message string `json:"message"`
+	}
+	PasswdLoginRequest {
+		Email    string `json:"email"`
+		Password string `json:"password"`
+	}
+	PasswdLoginResponse {
+		UserId       int64  `json:"userId"`
+		AccessToken  string `json:"accessToken"`
+		RefreshToken string `json:"refreshToken"`
+	}
+	UserInfoRequest {
+		UserId string `json:"userId"`
+	}
+	UserInfoResponse {
+		UserId int64  `json:"userId"`
+		Name   string `json:"name"`
+		Email  string `json:"email"`
+	}
+	ChangePasswdRequest {
+		NewPasswd string `json:"newPasswd"`
+	}
+	ChangePasswdResponse {
+		Message string `json:"message"`
+	}
+	SignoutRequest {
+		Email string `json:"email"`
+	}
+	SignoutResponse {
+		Message string `json:"message"`
+	}
+)
+
+@server (
+	prefix: /v1
+)
+service user-api {
+	@handler Register
+	post /register (RegisterRequest) returns (RegisterResponse)
+
+	@handler EmailLogin
+	post /emaillogin (EmailLoginRequest) returns (EmailLoginResponse)
+
+	@handler SendCode
+	post /sendcode (SendCodeRequest) returns (SendCodeResponse)
+
+	@handler PasswdLogin
+	post /passwdlogin (PasswdLoginRequest) returns (PasswdLoginResponse)
+}
+
+@server (
+	jwt:    Auth
+	prefix: /v1
+)
+service user-api {
+	@handler ChangePasswd
+	post /changePasswd (ChangePasswdRequest) returns (ChangePasswdResponse)
+
+	@handler UserInfo
+	post /userinfo (UserInfoRequest) returns (UserInfoResponse)
+
+	@handler Signout
+	post /signout (SignoutRequest) returns (SignoutResponse)
+}
+
